@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, CardProduct } from "../components";
+import { Navbar, CardProduct, Footer } from "../components";
 import { Collaborative } from "../method";
 import { FindProductAvailable } from "../utils";
 
@@ -45,6 +45,7 @@ function Homepage() {
           </div>
         ) : null}
       </div>
+      <Footer />
     </>
   );
 }

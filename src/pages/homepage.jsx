@@ -26,20 +26,24 @@ function Homepage() {
       </div>
       <div className="container py-3">
         <Collaborative />
-        <div className="mb-4">
-          <div className="title-card-list">
-            <label className="text-title-list">Produk terlaris</label>
+        {productsBySold.length !== 0 ? (
+          <div className="mb-4">
+            <div className="title-card-list">
+              <label className="text-title-list">Produk terlaris</label>
+            </div>
+            <div className="product-card-list">
+              {productsBySold.map((data, index) => {
+                if (index < 6) {
+                  return (
+                    <CardProduct key={data.id} data={data} index={index} />
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </div>
           </div>
-          <div className="product-card-list">
-            {productsBySold.map((data, index) => {
-              if (index < 6) {
-                return <CardProduct key={data.id} data={data} index={index} />;
-              } else {
-                return null;
-              }
-            })}
-          </div>
-        </div>
+        ) : null}
       </div>
     </>
   );

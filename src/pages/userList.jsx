@@ -76,7 +76,7 @@ function UserList() {
                 </>
               ) : (
                 <tr className="text-center">
-                  <td colSpan={5}>Tidak ada data</td>
+                  <td colSpan={6}>Tidak ada data</td>
                 </tr>
               )}
             </tbody>

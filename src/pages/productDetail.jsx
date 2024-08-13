@@ -346,6 +346,12 @@ function ProductDetail() {
                               <div
                                 key={data.id}
                                 className="btn-variant"
+                                style={{
+                                  background:
+                                    selectedRamStorage === data
+                                      ? "#d3d3d3"
+                                      : "#f2f3f4",
+                                }}
                                 role="button"
                                 onClick={() => handleSelectedRamStorage(data)}
                               >
@@ -369,6 +375,12 @@ function ProductDetail() {
                               <div
                                 key={data.id}
                                 className="btn-variant"
+                                style={{
+                                  background:
+                                    selectedColor === data
+                                      ? "#d3d3d3"
+                                      : "#f2f3f4",
+                                }}
                                 role="button"
                                 onClick={() => handleSelectedColor(data)}
                               >

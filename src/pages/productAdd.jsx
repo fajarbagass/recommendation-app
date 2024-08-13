@@ -151,7 +151,7 @@ function ProductAdd() {
                 value={os}
                 onChange={(e) => setOs(e.target.value)}
               />
-              <label className="text-label mt-2">Spesifikasi Prosessor</label>
+              <label className="text-label mt-2">Chipset</label>
               <input
                 className="form-control text-normal"
                 type="text"
@@ -167,7 +167,7 @@ function ProductAdd() {
                 value={display}
                 onChange={(e) => setDisplay(e.target.value)}
               />
-              <label className="text-label mt-2">Spesifikasi Kamera</label>
+              <label className="text-label mt-2">Kamera Utama</label>
               <input
                 className="form-control text-normal"
                 type="text"
@@ -175,7 +175,7 @@ function ProductAdd() {
                 value={camera}
                 onChange={(e) => setCamera(e.target.value)}
               />
-              <label className="text-label mt-2">Spesifikasi Baterai</label>
+              <label className="text-label mt-2">Kapasitas Baterai</label>
               <input
                 className="form-control text-normal"
                 type="text"
@@ -183,21 +183,21 @@ function ProductAdd() {
                 value={battery}
                 onChange={(e) => setBattery(e.target.value)}
               />
-              <label className="text-label mt-2">Spesifikasi Jaringan</label>
-              <input
-                className="form-control text-normal"
-                type="text"
-                placeholder="..."
-                value={network}
-                onChange={(e) => setNetwork(e.target.value)}
-              />
-              <label className="text-label mt-2">Kapasitas Charger</label>
+              <label className="text-label mt-2">Charger</label>
               <input
                 className="form-control text-normal"
                 type="text"
                 placeholder="..."
                 value={charging}
                 onChange={(e) => setCharging(e.target.value)}
+              />
+              <label className="text-label mt-2">Jaringan</label>
+              <input
+                className="form-control text-normal"
+                type="text"
+                placeholder="..."
+                value={network}
+                onChange={(e) => setNetwork(e.target.value)}
               />
               <label className="text-label mt-2">Deskripsi Produk</label>
               <textarea

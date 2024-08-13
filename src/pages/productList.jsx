@@ -106,21 +106,27 @@ function ProductList() {
         <div className="d-flex flex-column">
           <div className="title-product-list text-title pt-3">
             <div
-              className="title-menu"
+              className={
+                options === "brand" ? "title-menu-selected" : "title-menu"
+              }
               role="button"
               onClick={() => handleOptions("brand")}
             >
               Brand
             </div>
             <div
-              className="title-menu"
+              className={
+                options === "product" ? "title-menu-selected" : "title-menu"
+              }
               role="button"
               onClick={() => handleOptions("product")}
             >
               Produk
             </div>
             <div
-              className="title-menu"
+              className={
+                options === "variant" ? "title-menu-selected" : "title-menu"
+              }
               role="button"
               onClick={() => handleOptions("variant")}
             >

@@ -39,7 +39,7 @@ function ContentBased({ id }) {
       const brand = Brand ? Brand.name : "";
 
       // Menggabungkan informasi produk dalam satu string
-      const uniqueProduct = `${brand}, ${model}, ${os}, ${chipset}, ${display}, ${camera}, ${battery}, ${network}, ${charging}`;
+      const uniqueProduct = `${brand}, ${model}, ${os}, ${chipset}, ${display}, ${camera}, ${battery}, ${charging}, ${network}`;
 
       // Memfilter varian yang memiliki stok lebih dari 0
       const filteredVariant = variantResponse.data.data.filter(
@@ -54,9 +54,10 @@ function ContentBased({ id }) {
       const uniqueRams = getUniqueAttributes("ram");
       const uniqueStorages = getUniqueAttributes("storage");
       const uniqueColors = getUniqueAttributes("color");
+      const uniquePrices = getUniqueAttributes("price");
 
       // Menggabungkan informasi varian dalam satu string
-      const uniqueVariant = `${uniqueRams}, ${uniqueStorages}, ${uniqueColors}`;
+      const uniqueVariant = `${uniqueRams}, ${uniqueStorages}, ${uniqueColors}, ${uniquePrices}`;
 
       // Menggabungkan informasi produk dan varian dalam satu objek
       const resultProduct = {
@@ -110,7 +111,8 @@ function ContentBased({ id }) {
           const uniqueRams = getUniqueAttributes("ram");
           const uniqueStorages = getUniqueAttributes("storage");
           const uniqueColors = getUniqueAttributes("color");
-          const uniqueVariant = `${uniqueRams}, ${uniqueStorages}, ${uniqueColors}`;
+          const uniquePrices = getUniqueAttributes("price");
+          const uniqueVariant = `${uniqueRams}, ${uniqueStorages}, ${uniqueColors}, ${uniquePrices}`;
 
           // Mengambil atribut produk
           const {
@@ -120,8 +122,8 @@ function ContentBased({ id }) {
             display,
             camera,
             battery,
-            network,
             charging,
+            network,
             Brand,
           } = product;
 
@@ -129,7 +131,7 @@ function ContentBased({ id }) {
           const brand = Brand ? Brand.name : "";
 
           // Menggabungkan informasi produk dalam satu string
-          const uniqueProduct = `${brand}, ${model}, ${os}, ${chipset}, ${display}, ${camera}, ${battery}, ${network}, ${charging}`;
+          const uniqueProduct = `${brand}, ${model}, ${os}, ${chipset}, ${display}, ${camera}, ${battery}, ${charging}, ${network}`;
 
           return {
             id: product.id,
@@ -151,25 +153,36 @@ function ContentBased({ id }) {
 
   // Fungsi untuk menghitung metode tf-idf dan rekomendasi produk
   const calculationContentBasedFiltering = useCallback(async () => {
-    // Merapihkan kata (term) dari tanda baca pada setiap data produk
     const documents = arrProducts.map((item) => {
+      // Mengubah data produk menjadi lowercase, menghilangkan tanda baca, dan memisahkan kata-kata
       let data = item.data
         .toLowerCase()
-        .replace(/[^\w\s]/g, "")
+        .replace(/[^\w\s.]/g, "")
         .split(" ");
+      data = [...new Set(data)].filter((word) => word.trim() !== "");
       return { ...item, data };
     });
 
     // Menentukan term dari produk yang dipilih
     const vocabulary = selectedProduct.data
       .toLowerCase()
-      .replace(/[^\w\s]/g, "")
-      .split(" ");
+      .replace(/[^\w\s.]/g, "")
+      .split(" ")
+      .filter((word) => word.trim() !== "")
+      .reduce((uniqueWords, word) => {
+        if (!uniqueWords.has(word)) {
+          uniqueWords.add(word);
+        }
+        return uniqueWords;
+      }, new Set()); // Menggunakan Set untuk memastikan kata unik
+
+    // Mengubah Set kembali menjadi array
+    const vocabularyArray = [...vocabulary];
 
     // Perhitungan tf (term frequency)
     const tf = documents.map((doc) => {
       const termFrequency = {};
-      vocabulary.forEach((term) => {
+      vocabularyArray.forEach((term) => {
         termFrequency[term] = doc.data.filter((word) => word === term).length;
       });
       return { productId: doc.id, data: termFrequency };
@@ -177,7 +190,7 @@ function ContentBased({ id }) {
 
     // Menghitung df (document frequency)
     const documentFrequency = {};
-    vocabulary.forEach((term) => {
+    vocabularyArray.forEach((term) => {
       let count = 0;
       documents.forEach((doc) => {
         if (doc.data.includes(term)) {
@@ -193,7 +206,8 @@ function ContentBased({ id }) {
     // Perhitungan idf (inverse document frequency)
     const inverseDocumentFrequency = {};
     Object.keys(documentFrequency).forEach((term) => {
-      const idfValue = Math.log(totalDocuments / documentFrequency[term]);
+      const dfValue = totalDocuments / documentFrequency[term];
+      const idfValue = Math.log10(dfValue);
       inverseDocumentFrequency[term] = isFinite(idfValue) ? idfValue : 0;
     });
 
@@ -202,7 +216,7 @@ function ContentBased({ id }) {
       const tfidfScore = {};
       Object.keys(termFrequency.data).forEach((term) => {
         tfidfScore[term] =
-          termFrequency.data[term] * (1 + inverseDocumentFrequency[term]);
+          termFrequency.data[term] * (inverseDocumentFrequency[term] + 1);
       });
       return { productId: termFrequency.productId, data: tfidfScore };
     });

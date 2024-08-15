@@ -22,11 +22,7 @@ function NavbarLabel({ label }) {
     <div className="nav-label-container">
       <div className="nav-body py-1">
         {/* Logo */}
-        <div className="w-25 text-center">
-          <Link className="text-logo text-white" to={"/"}>
-            LOGO
-          </Link>
-        </div>
+        <div className="w-25 text-center"></div>
         {/* Label */}
         <div className="w-50 text-logo text-center text-white">{label}</div>
         {/* Menu */}
@@ -64,7 +60,13 @@ function NavbarLabel({ label }) {
               aria-labelledby="offcanvasRightLabel"
             >
               <div className="offcanvas-header">
-                <label className="text-logo">LOGO</label>
+                <Link to={"/"}>
+                  <img
+                    src={process.env.PUBLIC_URL + "/assets/logo-image.png"}
+                    alt="logo-image"
+                    className="nav-logo"
+                  />
+                </Link>
                 <button
                   type="button"
                   className="btn-close text-reset"

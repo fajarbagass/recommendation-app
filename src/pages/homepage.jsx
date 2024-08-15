@@ -10,19 +10,12 @@ function Homepage() {
   return (
     <>
       <Navbar />
-      <div className="banner-home py-5">
-        <div
-          className="text-white text-title-lg d-flex justify-content-center align-items-center "
-          style={{ width: "260px" }}
-        >
-          LOGO
-        </div>
-        <div className="text-white">
-          <label className="text-title-lg">Selamat Datang di Toko HPku!</label>
-          <p className="text-normal" style={{ maxWidth: "320px" }}>
-            Temukan Beragam Pilihan Merek HP Terbaik Hanya di Sini.
-          </p>
-        </div>
+      <div className="d-flex justify-content-center my-2 py-1">
+        <img
+          src={process.env.PUBLIC_URL + "/assets/banner-image.jpg"}
+          alt="banner-image"
+          className="banner-home"
+        />
       </div>
       <div className="container py-3">
         <Collaborative />

@@ -45,7 +45,11 @@ function Navbar() {
         {/* Logo */}
         <div className="w-25 text-center">
           <Link className="text-logo" to={"/"}>
-            LOGO
+            <img
+              src={process.env.PUBLIC_URL + "/assets/logo-image.png"}
+              alt="logo-image"
+              className="nav-logo"
+            />
           </Link>
         </div>
         {/* Search Bar */}
@@ -133,7 +137,13 @@ function Navbar() {
                   aria-labelledby="offcanvasRightLabel"
                 >
                   <div className="offcanvas-header">
-                    <label className="text-logo">LOGO</label>
+                    <Link to={"/"}>
+                      <img
+                        src={process.env.PUBLIC_URL + "/assets/logo-image.png"}
+                        alt="logo-image"
+                        className="nav-logo"
+                      />
+                    </Link>
                     <button
                       type="button"
                       className="btn-close text-reset"

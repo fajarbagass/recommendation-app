@@ -239,7 +239,6 @@ function Collaborative() {
     setProductResult(productCollaborative);
     setMoreProductResult(moreProduct);
   }, [reviews, users, user, availableProducts]);
-  console.log(productResult);
 
   // mengukur panjang data array produk
   const lenProducts = productResult.length;

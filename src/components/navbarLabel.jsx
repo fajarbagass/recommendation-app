@@ -21,8 +21,16 @@ function NavbarLabel({ label }) {
   return (
     <div className="nav-label-container">
       <div className="nav-body py-1">
-        {/* Logo */}
-        <div className="w-25 text-center"></div>
+        {/* Back Button */}
+        <div className="w-25 text-center">
+          <img
+            src={process.env.PUBLIC_URL + "/assets/back-button-icon.svg"}
+            alt="back-button-icon"
+            className="back-btn-icon"
+            role="button"
+            onClick={() => navigate(-1)}
+          />
+        </div>
         {/* Label */}
         <div className="w-50 text-logo text-center text-white">{label}</div>
         {/* Menu */}

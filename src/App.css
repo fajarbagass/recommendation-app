@@ -13,7 +13,7 @@
   background-color: #212529;
   color: #ffffff;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 .nav-logo {
   height: 40px;
@@ -128,7 +128,15 @@
   letter-spacing: 2px;
 }
 /* Picture */
-.square-img-list,
+.square-img-list {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border: 1px solid #f2f3f4;
+  border-radius: 8px;
+  background: #ffffff;
+}
 .square-img-review {
   position: relative;
   width: 120px;
